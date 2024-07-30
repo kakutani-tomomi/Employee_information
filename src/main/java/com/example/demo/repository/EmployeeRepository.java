@@ -16,25 +16,34 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Repository
 public class EmployeeRepository {
 
-	//従業員一覧取得
+	/**
+	 * 従業員一覧を取得するメソッド
+	 * @return 従業員一覧
+	 * @throws IOException
+	 */
 	public EmployeeData[] getEmployeeList() throws IOException {
 
 		String url = "https://wsaz0e6z45.execute-api.ap-northeast-1.amazonaws.com/prod/kintaikanri/employee";
 
 		RestTemplate rest = new RestTemplate();
 
+		//レスポンスの取得
 		ResponseEntity<String> response = rest.getForEntity(url, String.class);
-
+		//レスポンスボディの取得
 		String json = response.getBody();
 
 		ObjectMapper mapper = new ObjectMapper();
-
+		//json配列をDataがた配列に格納
 		EmployeeData[] employeeList = mapper.readValue(json, EmployeeData[].class);
 
 		return employeeList;
 	}
 
-	//従業員登録
+	/**
+	 * 入力された値をもとに従業員を登録するメソッド
+	 * @param registData 登録する従業員情報
+	 * @throws IOException
+	 */
 	public void employeeRegist(EmployeeRegist registData) throws IOException {
 
 		String url = "https://wsaz0e6z45.execute-api.ap-northeast-1.amazonaws.com/prod/kintaikanri/employee";
@@ -61,8 +70,14 @@ public class EmployeeRepository {
 		System.out.println(json);
 	}
 
-	//勤怠取得
-
+	//-------------------------------------------------詳細画面処理----------------------------------------------------
+	
+	/**
+	 * idをもとに対象従業員の勤怠を返すメソッド
+	 * @param employeeId 従業員id
+	 * @return employeeClock 稼働時刻
+	 * @throws IOException
+	 */
 	public EmployeeClock[] getClock(String employeeId) throws IOException {
 		String url = "https://wsaz0e6z45.execute-api.ap-northeast-1.amazonaws.com/prod/kintaikanri/clock?employeeId="
 				+ employeeId;
@@ -80,7 +95,12 @@ public class EmployeeRepository {
 
 		return employeeClock;
 	}
-	
+
+	/**
+	 * 出退勤ボタンが押されたときに、時刻を登録するメソッド
+	 * @param requestBody 従業員idと稼働時刻をもとに作られたリクエストボディ
+	 * @throws IOException
+	 */
 	public void clockRegist(String requestBody) throws IOException {
 
 		String url = "https://wsaz0e6z45.execute-api.ap-northeast-1.amazonaws.com/prod/kintaikanri/clock";

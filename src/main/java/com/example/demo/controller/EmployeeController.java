@@ -62,6 +62,8 @@ public class EmployeeController {
 
 		EmployeeClock[] employeeClock = employeeService.getClock(employeeId);
 
+		System.out.println(Arrays.toString(employeeClock));
+
 		model.addAttribute("employeeId", employeeId);
 		model.addAttribute("name", name);
 		model.addAttribute("employeeClock", employeeClock);
@@ -80,12 +82,12 @@ public class EmployeeController {
 		Date nowDate = new Date();
 		//右辺の形式にFormat
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		//Stringがたの変数に格納
+		//String型の変数に格納
 		String currentDate = dateFormat.format(nowDate);
-		
+
 		//登録処理
 		employeeService.clockRegist(employeeId, clickButton, currentDate);
-		
+
 		//対象idの勤怠時刻を取得
 		EmployeeClock[] employeeClock = employeeService.getClock(employeeId);
 		System.out.println(Arrays.toString(employeeClock));

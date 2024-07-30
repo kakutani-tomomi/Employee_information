@@ -21,7 +21,7 @@ public class EmployeeService {
 		this.employeeRepository = employeeRepository;
 	}
 
-	/*
+	/**
 	 * 社員一覧のリスト取得 
 	 * @return 社員一覧
 	 * @throws IOException
@@ -34,8 +34,11 @@ public class EmployeeService {
 	}
 
 	/**
-	 * 登録処理
-	 * @throws IOException 
+	 * 従業員を登録するメソッド
+	 * @param name 氏名
+	 * @param homeTown 出身地
+	 * @param joiningMonth 入社月
+	 * @throws IOException
 	 */
 	public void employeeRegist(String name, String homeTown, String joiningMonth) throws IOException {
 		//Dataのインスタンス生成・初期化
@@ -46,22 +49,30 @@ public class EmployeeService {
 	}
 
 	/**
-	 * 勤怠取得
+	 * 対象従業員の勤怠取得メソッド
+	 * @param employeeId 従業員id
+	 * @return 勤怠情報
+	 * @throws IOException
 	 */
 	public EmployeeClock[] getClock(String employeeId) throws IOException {
 
-		EmployeeClock clock[] = employeeRepository.getClock(employeeId);
+		EmployeeClock employeeClock[] = employeeRepository.getClock(employeeId);
 
-		return clock;
+		return employeeClock;
 	}
 
 	/**
-	 * 勤怠登録
+	 * 対象従業員の出退勤を登録するメソッド
+	 * @param employeeId 従業員id
+	 * @param clickButton 押下されたボタンの種類(出勤、休憩開始、休憩終了、退勤)
+	 * @param currentDateTime 出退勤ボタンが押された時間
+	 * @throws IOException
 	 */
 	public void clockRegist(String employeeId, String clickButton, String currentDateTime) throws IOException {
-		System.out.println(employeeId);
+		
+		//JSON形式へのFormatの為、変換クラスをnew
 		DatailJsonFormat format = new DatailJsonFormat();
-		//リポジトリ用のJSON文字列の作成
+		//リクエストボディ用のJSON文字列の作成
 		String requestBody = format.jsonFormat(employeeId, clickButton, currentDateTime);
 		employeeRepository.clockRegist(requestBody);
 	}

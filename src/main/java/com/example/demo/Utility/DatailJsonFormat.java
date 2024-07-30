@@ -7,7 +7,7 @@ public class DatailJsonFormat {
 	 * @param employeeId
 	 * @param clickButton
 	 * @param currentDateTime
-	 * @return
+	 * @return json形式の配列。
 	 */
 	public String jsonFormat(String employeeId, String clickButton, String currentDateTime) {
 		String json = null;
