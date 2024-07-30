@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8" />
+	<title>社員詳細</title>
+</head>
+
+<body>
+	<h1>社員詳細</h1>
+	<h2 th:text="${name}"></h2>
+
+	<form action="ClockRegist" method="post">
+		<input type="hidden" name="employeeId" th:value="${employeeId}">
+		<input type="hidden" name="name" th:value="${name}">
+		<input type="submit" name="click_button" value="出勤">
+		<input type="submit" name="click_button" value="休憩開始">
+		<input type="submit" name="click_button" value="休憩終了">
+		<input type="submit" name="click_button" value="退勤">
+	</form>
+	<table border="1">
+		<tr>
+			<th>出勤日時</th>
+			<th>休憩開始日時</th>
+			<th>休憩終了日時</th>
+			<th>退勤日時</th>
+		</tr>
+		<tr th:each="clock : ${employeeClock}">
+			<td th:text="${clock.clockIn}"></td>
+			<td th:text="${clock.clockIn}"></td>
+			<td th:text="${clock.breakStart}"></td>
+			<td th:text="${clock.clockOut}"></td>
+		</tr>
+	</table>
+	<form action="employeeList" method="get">
+		<input type="submit" value="社員一覧へ">
+	</form>
+</body>
+
+</html>

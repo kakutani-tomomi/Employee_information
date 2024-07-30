@@ -21,7 +21,10 @@
 			<td th:text="${employee.homeTown}"></td>
 			<td th:text="${employee.joiningMonth}"></td>
 			<td>
-				<form action="animalDetail" method="get">
+				<form action="employeeDetailPage" method="get">
+					<!-- hiddenでidとnameを送信 -->
+					<input type="hidden" name="employeeId" th:value="${employee.id}">
+					<input type="hidden" name="name" th:value="${employee.name}">
 					<input type="submit" value="詳細">
 				</form>
 			</td>

@@ -6,16 +6,7 @@ import lombok.Data;
 
 @Data
 public class EmployeeData {
-	public EmployeeData() {
-		//引数ナシ処理なしコンストラクタ
-	}
 	
-	public EmployeeData(String name, String homeTown, String joiningMonth) {
-		this.name = name;
-		this.homeTown = homeTown;
-		this.joiningMonth = joiningMonth;
-	}
-
 	@JsonProperty("id")
 	private int id;
 

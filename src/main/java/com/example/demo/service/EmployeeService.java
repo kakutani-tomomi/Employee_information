@@ -4,11 +4,10 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.Utility.DatailJsonFormat;
+import com.example.demo.data.EmployeeClock;
 import com.example.demo.data.EmployeeData;
 import com.example.demo.data.EmployeeRegist;
 import com.example.demo.repository.EmployeeRepository;
@@ -28,10 +27,10 @@ public class EmployeeService {
 	 * @throws IOException
 	 */
 	public List<EmployeeData> getEmployeeList() throws IOException {
-		
-		EmployeeData[] animalsList = employeeRepository.getAnimalList();
 
-		return Arrays.asList(animalsList);
+		EmployeeData[] employeeList = employeeRepository.getEmployeeList();
+
+		return Arrays.asList(employeeList);
 	}
 
 	/**
@@ -42,12 +41,28 @@ public class EmployeeService {
 		//Dataのインスタンス生成・初期化
 		EmployeeRegist registData = new EmployeeRegist(name, homeTown, joiningMonth);
 
-		//リクエストヘッダーの作成 json形式で送るため、ContentTypeをJSONに指定
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON); 
-		//リクエストボディの作成 実際の値のDTOとリクエストヘッダーを格納
-		HttpEntity<EmployeeRegist> entity = new HttpEntity<>(registData, headers);
-		//操作
-		employeeRepository.employeeRegist(entity);
+		//リクエストパラメータを格納したDTOを渡す。
+		employeeRepository.employeeRegist(registData);
+	}
+
+	/**
+	 * 勤怠取得
+	 */
+	public EmployeeClock[] getClock(String employeeId) throws IOException {
+
+		EmployeeClock clock[] = employeeRepository.getClock(employeeId);
+
+		return clock;
+	}
+
+	/**
+	 * 勤怠登録
+	 */
+	public void clockRegist(String employeeId, String clickButton, String currentDateTime) throws IOException {
+		
+		DatailJsonFormat format = new DatailJsonFormat();
+		//リポジトリ用のJSON文字列の作成
+		String requestBody = format.jsonFormat(employeeId, clickButton, currentDateTime);
+		employeeRepository.clockRegist(requestBody);
 	}
 }
