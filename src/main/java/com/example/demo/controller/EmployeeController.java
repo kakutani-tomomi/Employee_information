@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -10,14 +11,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.context.annotation.SessionScope;
 
 import com.example.demo.data.EmployeeClock;
 import com.example.demo.data.EmployeeData;
 import com.example.demo.service.EmployeeService;
 
 @Controller
-@SessionScope
 public class EmployeeController {
 
 	private final EmployeeService employeeService;
@@ -89,6 +88,7 @@ public class EmployeeController {
 		
 		//対象idの勤怠時刻を取得
 		EmployeeClock[] employeeClock = employeeService.getClock(employeeId);
+		System.out.println(Arrays.toString(employeeClock));
 
 		//データの格納 nameは登録に使わない。
 		model.addAttribute("employeeClock", employeeClock);

@@ -59,7 +59,7 @@ public class EmployeeService {
 	 * 勤怠登録
 	 */
 	public void clockRegist(String employeeId, String clickButton, String currentDateTime) throws IOException {
-		
+		System.out.println(employeeId);
 		DatailJsonFormat format = new DatailJsonFormat();
 		//リポジトリ用のJSON文字列の作成
 		String requestBody = format.jsonFormat(employeeId, clickButton, currentDateTime);
