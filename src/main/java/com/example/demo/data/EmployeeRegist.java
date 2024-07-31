@@ -6,10 +6,10 @@ import lombok.Data;
 
 @Data
 public class EmployeeRegist {
-	public EmployeeRegist(){
+	public EmployeeRegist() {
 		//引数ナシ処理なしコンストラクタ
 	}
-	
+
 	public EmployeeRegist(String name, String homeTown, String joiningMonth) {
 		this.name = name;
 		this.homeTown = homeTown;
@@ -24,5 +24,5 @@ public class EmployeeRegist {
 
 	@JsonProperty("joining_month")
 	private String joiningMonth;
-	
+
 }

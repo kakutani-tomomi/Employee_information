@@ -9,8 +9,9 @@
 <body>
 	<h1>社員詳細</h1>
 	<h2 th:text="${name}"></h2>
-	
+
 	<form action="ClockRegist" method="post">
+		<!-- hiddenでidとnameを送信 -->
 		<input type="hidden" name="employeeId" th:value="${employeeId}">
 		<input type="hidden" name="name" th:value="${name}">
 		<input type="submit" name="click_button" value="出勤">

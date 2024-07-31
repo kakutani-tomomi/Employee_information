@@ -59,7 +59,7 @@ public class EmployeeController {
 	@GetMapping("employeeDetailPage")
 	public String employeeDetailPage(@RequestParam("employeeId") String employeeId, @RequestParam("name") String name,
 			Model model) throws IOException {
-		
+
 		EmployeeClock[] employeeClock = employeeService.getClock(employeeId);
 
 		System.out.println(Arrays.toString(employeeClock));

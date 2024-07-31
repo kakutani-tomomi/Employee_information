@@ -17,10 +17,10 @@ public class EmployeeClock {
 
 	@JsonProperty("clock_out")
 	private String clockOut;
-	
+
 	@JsonProperty("break_start")
 	private String breakStart;
-	
+
 	@JsonProperty("break_end")
 	private String breakEnd;
 }

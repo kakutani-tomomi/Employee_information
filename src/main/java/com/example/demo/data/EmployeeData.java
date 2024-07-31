@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class EmployeeData {
-	
+
 	@JsonProperty("id")
 	private int id;
 
@@ -18,10 +18,10 @@ public class EmployeeData {
 
 	@JsonProperty("joining_month")
 	private String joiningMonth;
-	
+
 	@JsonProperty("created_at")
 	private String createdAt;
-	
+
 	@JsonProperty("updated_at")
 	private String updatedAt;
 }
