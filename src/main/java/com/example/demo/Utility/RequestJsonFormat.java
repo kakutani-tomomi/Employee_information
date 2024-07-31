@@ -1,7 +1,7 @@
 package com.example.demo.Utility;
 
 /*
- * APIに送信する値をJson形式に変換するメソッド 
+ * APIに送信する値をJson形式に変換するクラス
  */
 
 public class RequestJsonFormat {

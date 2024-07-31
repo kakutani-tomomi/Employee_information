@@ -42,8 +42,6 @@ public class EmployeeService {
 		
 		//Json形式のリクエストボディを作成
 		String riquestBody = RequestJsonFormat.employeeJsonFormat(name, homeTown, joiningMonth);
-		
-		//リクエストパラメータを格納したDTOを渡す。
 		employeeRepository.employeeRegist(riquestBody);
 	}
 }
