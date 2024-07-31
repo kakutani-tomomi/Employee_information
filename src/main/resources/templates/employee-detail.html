@@ -27,8 +27,8 @@
 		</tr>
 		<tr th:each="clock : ${employeeClock}">
 			<td th:text="${clock.clockIn}"></td>
-			<td th:text="${clock.clockIn}"></td>
 			<td th:text="${clock.breakStart}"></td>
+			<td th:text="${clock.breakEnd}"></td>
 			<td th:text="${clock.clockOut}"></td>
 		</tr>
 	</table>
