@@ -69,11 +69,9 @@ public class EmployeeService {
 	 * @throws IOException
 	 */
 	public void clockRegist(String employeeId, String clickButton, String currentDateTime) throws IOException {
-		
-		//JSON形式へのFormatの為、変換クラスをnew
-		DatailJsonFormat format = new DatailJsonFormat();
+
 		//リクエストボディ用のJSON文字列の作成
-		String requestBody = format.jsonFormat(employeeId, clickButton, currentDateTime);
+		String requestBody = DatailJsonFormat.clockJsonFormat(employeeId, clickButton, currentDateTime);
 		employeeRepository.clockRegist(requestBody);
 	}
 }

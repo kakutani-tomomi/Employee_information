@@ -9,13 +9,24 @@
 <body>
 	<h1>新入社員登録</h1>
 	<form action="Registration" method="post">
-		<input type="text" name="name" placeholder="山田 太郎"><br>
-		<input type="text" name="home_town" placeholder="東京都"><br>
-		<input type="date" name="joining_month"></input><br>
+		<table>
+			<tr>
+				<th>氏名</th>
+				<td><input type="text" name="name" placeholder="例) 田中 太郎"></td>
+			</tr>
+			<tr>
+				<th>出身地</th>
+				<td><input type="text" name="home_town" placeholder="例) 東京"></td>
+			</tr>
+			<tr>
+				<th>入社月</th>
+				<td><input type="date" name="joining_month"></td>
+			</tr>
+		</table>
 		<input type="submit" value="登録する"><br>
 	</form>
 	<form action="employeeList" method="get">
-		<input type="submit" value="社員一覧へ">	
+		<input type="submit" value="社員一覧へ">
 	</form>
 </body>
 

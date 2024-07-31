@@ -59,7 +59,7 @@ public class EmployeeController {
 	@GetMapping("employeeDetailPage")
 	public String employeeDetailPage(@RequestParam("employeeId") String employeeId, @RequestParam("name") String name,
 			Model model) throws IOException {
-
+		
 		EmployeeClock[] employeeClock = employeeService.getClock(employeeId);
 
 		System.out.println(Arrays.toString(employeeClock));
@@ -88,13 +88,12 @@ public class EmployeeController {
 		//登録処理
 		employeeService.clockRegist(employeeId, clickButton, currentDate);
 
-		//対象idの勤怠時刻を取得
+		//ボタンクリック後の再取得の為、勤怠の取得
 		EmployeeClock[] employeeClock = employeeService.getClock(employeeId);
-		System.out.println(Arrays.toString(employeeClock));
 
-		//データの格納 nameは登録に使わない。
-		model.addAttribute("employeeClock", employeeClock);
+		//データの格納 nameは登録に使わない。idとemoloyeeクリックは再度登録処理に必要になるため利用。
 		model.addAttribute("employeeId", employeeId);
+		model.addAttribute("employeeClock", employeeClock);
 		model.addAttribute("name", name);
 		return "employee-detail.html";
 	}

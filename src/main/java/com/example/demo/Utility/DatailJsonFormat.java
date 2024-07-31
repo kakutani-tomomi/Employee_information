@@ -4,12 +4,12 @@ public class DatailJsonFormat {
 
 	/**
 	 * 押下されたbuttonによって作成するJson文字列を変更する。
-	 * @param employeeId
+	 * @param employeeId 
 	 * @param clickButton
 	 * @param currentDateTime
 	 * @return json形式の配列。
 	 */
-	public String jsonFormat(String employeeId, String clickButton, String currentDateTime) {
+	public static String clockJsonFormat(String employeeId, String clickButton, String currentDateTime) {
 		String json = null;
 
 		if ("出勤".equals(clickButton)) {
