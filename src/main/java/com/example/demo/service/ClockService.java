@@ -5,7 +5,7 @@ import java.io.IOException;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Utility.RequestJsonFormat;
-import com.example.demo.data.EmployeeClock;
+import com.example.demo.data.EmployeeClockData;
 import com.example.demo.repository.ClockRepository;
 
 @Service
@@ -23,9 +23,9 @@ public class ClockService {
 	 * @return 勤怠情報
 	 * @throws IOException
 	 */
-	public EmployeeClock[] getClock(String employeeId) throws IOException {
+	public EmployeeClockData[] getClock(String employeeId) throws IOException {
 
-		EmployeeClock employeeClock[] = clockRepository.getClock(employeeId);
+		EmployeeClockData employeeClock[] = clockRepository.getClock(employeeId);
 
 		return employeeClock;
 	}

@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
 
-import com.example.demo.data.EmployeeClock;
+import com.example.demo.data.EmployeeClockData;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Repository
@@ -20,7 +20,7 @@ public class ClockRepository {
 	 * @return employeeClock 稼働時刻
 	 * @throws IOException
 	 */
-	public EmployeeClock[] getClock(String employeeId) throws IOException {
+	public EmployeeClockData[] getClock(String employeeId) throws IOException {
 		String url = "https://wsaz0e6z45.execute-api.ap-northeast-1.amazonaws.com/prod/kintaikanri/clock?employeeId="
 				+ employeeId;
 
@@ -33,7 +33,7 @@ public class ClockRepository {
 
 		ObjectMapper mapper = new ObjectMapper();
 		//jsonを配列に格納
-		EmployeeClock[] employeeClock = mapper.readValue(json, EmployeeClock[].class);
+		EmployeeClockData[] employeeClock = mapper.readValue(json, EmployeeClockData[].class);
 
 		return employeeClock;
 	}

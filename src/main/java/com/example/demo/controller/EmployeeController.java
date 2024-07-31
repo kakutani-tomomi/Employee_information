@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.demo.data.EmployeeClock;
+import com.example.demo.data.EmployeeClockData;
 import com.example.demo.data.EmployeeData;
 import com.example.demo.service.ClockService;
 import com.example.demo.service.EmployeeService;
@@ -62,7 +62,7 @@ public class EmployeeController {
 	public String employeeDetailPage(@RequestParam("employeeId") String employeeId, @RequestParam("name") String name,
 			Model model) throws IOException {
 
-		EmployeeClock[] employeeClock = clockService.getClock(employeeId);
+		EmployeeClockData[] employeeClock = clockService.getClock(employeeId);
 
 		model.addAttribute("employeeId", employeeId);
 		model.addAttribute("name", name);
@@ -89,7 +89,7 @@ public class EmployeeController {
 		clockService.clockRegist(employeeId, clickButton, currentDate);
 
 		//ボタンクリック後の再取得の為、勤怠の取得
-		EmployeeClock[] employeeClock = clockService.getClock(employeeId);
+		EmployeeClockData[] employeeClock = clockService.getClock(employeeId);
 
 		//データの格納 nameは登録に使わない。idとemoloyeeクリックは再度登録処理に必要になるため利用。
 		model.addAttribute("employeeId", employeeId);
