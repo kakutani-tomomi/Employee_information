@@ -21,7 +21,7 @@
 			<td th:text="${employee.homeTown}"></td>
 			<td th:text="${employee.joiningMonth}"></td>
 			<td>
-				<form action="employeeDetailPage" method="get">
+				<form action="employeeDetailPage" method="post">
 					<!-- hiddenでidとnameを送信 -->
 					<input type="hidden" name="employeeId" th:value="${employee.id}">
 					<input type="hidden" name="name" th:value="${employee.name}">

@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -14,15 +13,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.data.EmployeeClock;
 import com.example.demo.data.EmployeeData;
+import com.example.demo.service.ClockService;
 import com.example.demo.service.EmployeeService;
 
 @Controller
 public class EmployeeController {
 
 	private final EmployeeService employeeService;
+	private final ClockService clockService;
 
-	public EmployeeController(EmployeeService employeeService) {
+	public EmployeeController(EmployeeService employeeService,ClockService clockService) {
 		this.employeeService = employeeService;
+		this.clockService = clockService;
 	}
 
 	//------------------------一覧表示----------------------------------------------------
@@ -56,13 +58,11 @@ public class EmployeeController {
 
 	//------------------------勤怠関連処理------------------------------------------------
 	//詳細画面表示
-	@GetMapping("employeeDetailPage")
+	@PostMapping("employeeDetailPage")
 	public String employeeDetailPage(@RequestParam("employeeId") String employeeId, @RequestParam("name") String name,
 			Model model) throws IOException {
 
-		EmployeeClock[] employeeClock = employeeService.getClock(employeeId);
-
-		System.out.println(Arrays.toString(employeeClock));
+		EmployeeClock[] employeeClock = clockService.getClock(employeeId);
 
 		model.addAttribute("employeeId", employeeId);
 		model.addAttribute("name", name);
@@ -86,10 +86,10 @@ public class EmployeeController {
 		String currentDate = dateFormat.format(nowDate);
 
 		//登録処理
-		employeeService.clockRegist(employeeId, clickButton, currentDate);
+		clockService.clockRegist(employeeId, clickButton, currentDate);
 
 		//ボタンクリック後の再取得の為、勤怠の取得
-		EmployeeClock[] employeeClock = employeeService.getClock(employeeId);
+		EmployeeClock[] employeeClock = clockService.getClock(employeeId);
 
 		//データの格納 nameは登録に使わない。idとemoloyeeクリックは再度登録処理に必要になるため利用。
 		model.addAttribute("employeeId", employeeId);
