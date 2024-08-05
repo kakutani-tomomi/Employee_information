@@ -22,7 +22,7 @@ public class EmployeeController {
 	private final EmployeeService employeeService;
 	private final ClockService clockService;
 
-	public EmployeeController(EmployeeService employeeService,ClockService clockService) {
+	public EmployeeController(EmployeeService employeeService, ClockService clockService) {
 		this.employeeService = employeeService;
 		this.clockService = clockService;
 	}
@@ -91,7 +91,7 @@ public class EmployeeController {
 		//ボタンクリック後の再取得の為、勤怠の取得
 		EmployeeClockData[] employeeClock = clockService.getClock(employeeId);
 
-		//データの格納 nameは登録に使わない。idとemoloyeeクリックは再度登録処理に必要になるため利用。
+		//データの格納 nameは登録に使わない。idとemoloyeeクロックは再度登録処理に必要になるため利用。
 		model.addAttribute("employeeId", employeeId);
 		model.addAttribute("employeeClock", employeeClock);
 		model.addAttribute("name", name);
