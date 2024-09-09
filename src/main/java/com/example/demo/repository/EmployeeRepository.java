@@ -31,7 +31,7 @@ public class EmployeeRepository {
 		String json = response.getBody();
 
 		ObjectMapper mapper = new ObjectMapper();
-		//json配列をDataがた配列に格納
+		//json配列をEmployeeData型配列に格納
 		EmployeeData[] employeeList = mapper.readValue(json, EmployeeData[].class);
 
 		return employeeList;
