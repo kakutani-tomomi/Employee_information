@@ -1,6 +1,8 @@
 package com.example.demo.Utility;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 /*
  * APIに送信する値をJson形式に変換するクラス
@@ -43,39 +45,29 @@ public class RequestJsonFormat {
 	public static String clockJsonFormat(String employeeId, String clickButton, String currentDateTime)
 			throws JsonProcessingException {
 		String clockJson = null;
-
+		ObjectMapper mapper =  new ObjectMapper();
+	    ObjectNode innerBody = mapper.createObjectNode();
+	    ObjectNode json = mapper.createObjectNode();
 		//休憩開始が押下されたらclock_inに現在時刻を格納
 		if ("出勤".equals(clickButton)) {
-//			System.out.println("出勤が押下されました。");
-//
-//			clockJson = "{ \"body\": \"{ \\\"employee_id\\\":\\\"" + employeeId + "\\\", \\\"clock_in\\\":\\\""
-//					+ currentDateTime
-//					+ "\\\", \\\"break_start\\\":\\\"\\\", \\\"break_end\\\":\\\"\\\", \\\"clock_out\\\":\\\"\\\" }\" }";
-			
+			innerBody.put("\\employee_id", employeeId);
+	        innerBody.put("clock_in", currentDateTime);
+	        innerBody.put("break_start","");
+	        innerBody.put("break_end", "");
+	        innerBody.put("clock_out", "");
+			json.set("body", innerBody);
+			clockJson = mapper.writeValueAsString(json);
+			System.out.println(clockJson);
 			//休憩開始が押下されたらbreak_startに現在時刻を格納
 		} else if ("休憩開始".equals(clickButton)) {
-			System.out.println("休憩開始が押下されました。");
-
-			clockJson = "{ \"body\": \"{ \\\"employee_id\\\":\\\"" + employeeId
-					+ "\\\", \\\"clock_in\\\":\\\"\\\", \\\"break_start\\\":\\\""
-					+ currentDateTime
-					+ "\\\", \\\"break_end\\\":\\\"\\\", \\\"clock_out\\\":\\\"\\\" }\" }";
+			
 
 			//休憩終了が押下されたらbreak_endに現在時刻を格納
 		} else if ("休憩終了".equals(clickButton)) {
-			System.out.println("休憩終了が押下されました。");
-
-			clockJson = "{ \"body\": \"{ \\\"employee_id\\\":\\\"" + employeeId
-					+ "\\\", \\\"clock_in\\\":\\\"\\\", \\\"break_start\\\":\\\"\\\", \\\"break_end\\\":\\\""
-					+ currentDateTime + "\\\", \\\"clock_out\\\":\\\"\\\" }\" }";
-
+			
 			//退勤が押下されたらclock_outに現在時刻を格納
 		} else if ("退勤".equals(clickButton)) {
-			System.out.println("退勤が押下されました。");
-
-			clockJson = "{ \"body\": \"{ \\\"employee_id\\\":\\\"" + employeeId
-					+ "\\\", \\\"clock_in\\\":\\\"\\\", \\\"break_start\\\":\\\"\\\", \\\"break_end\\\":\\\"\\\", \\\"clock_out\\\":\\\""
-					+ currentDateTime + "\\\" }\" }";
+			
 
 		}
 		return clockJson;
