@@ -47,12 +47,11 @@ public class RequestJsonFormat {
 		//休憩開始が押下されたらclock_inに現在時刻を格納
 		if ("出勤".equals(clickButton)) {
 			System.out.println("出勤が押下されました。");
-			System.out.println("出勤が押下されました。");
 
 			clockJson = "{ \"body\": \"{ \\\"employee_id\\\":\\\"" + employeeId + "\\\", \\\"clock_in\\\":\\\""
 					+ currentDateTime
 					+ "\\\", \\\"break_start\\\":\\\"\\\", \\\"break_end\\\":\\\"\\\", \\\"clock_out\\\":\\\"\\\" }\" }";
-
+			
 			//休憩開始が押下されたらbreak_startに現在時刻を格納
 		} else if ("休憩開始".equals(clickButton)) {
 			System.out.println("休憩開始が押下されました。");
