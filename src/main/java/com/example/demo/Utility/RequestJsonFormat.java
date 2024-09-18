@@ -1,5 +1,7 @@
 package com.example.demo.Utility;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 /*
  * APIに送信する値をJson形式に変換するクラス
  */
@@ -10,7 +12,7 @@ public class RequestJsonFormat {
 	private RequestJsonFormat() {
 		throw new IllegalStateException("Util instance construction is not allowed.");
 	}
-	
+
 	/**
 	 * 新規登録画面で入力された値に基づいてjson文字列を生成
 	 * @param name 氏名
@@ -19,15 +21,15 @@ public class RequestJsonFormat {
 	 * @return　@return json形式の文字列。
 	 */
 	public static String employeeJsonFormat(String name, String homeTown, String joiningMonth) {
-		
+
 		String employeeJson = null;
-		
+
 		employeeJson = "{ \"body\": \"{\\\"name\\\":\\\"" + name + "\\\",\\\"hometown\\\":\\\""
 				+ homeTown + "\\\",\\\"joining_month\\\":\\\"" + joiningMonth
 				+ "\\\"}\" }";
-		
+
 		return employeeJson;
-		
+
 	}
 
 	/**
@@ -36,13 +38,15 @@ public class RequestJsonFormat {
 	 * @param clickButton
 	 * @param currentDateTime
 	 * @return json形式の文字列。
+	 * @throws JsonProcessingException 
 	 */
-	public static String clockJsonFormat(String employeeId, String clickButton, String currentDateTime) {
-
+	public static String clockJsonFormat(String employeeId, String clickButton, String currentDateTime)
+			throws JsonProcessingException {
 		String clockJson = null;
 
 		//休憩開始が押下されたらclock_inに現在時刻を格納
 		if ("出勤".equals(clickButton)) {
+			System.out.println("出勤が押下されました。");
 			System.out.println("出勤が押下されました。");
 
 			clockJson = "{ \"body\": \"{ \\\"employee_id\\\":\\\"" + employeeId + "\\\", \\\"clock_in\\\":\\\""
@@ -73,6 +77,7 @@ public class RequestJsonFormat {
 			clockJson = "{ \"body\": \"{ \\\"employee_id\\\":\\\"" + employeeId
 					+ "\\\", \\\"clock_in\\\":\\\"\\\", \\\"break_start\\\":\\\"\\\", \\\"break_end\\\":\\\"\\\", \\\"clock_out\\\":\\\""
 					+ currentDateTime + "\\\" }\" }";
+
 		}
 		return clockJson;
 	}

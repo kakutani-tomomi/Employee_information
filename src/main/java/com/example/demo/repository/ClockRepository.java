@@ -59,12 +59,11 @@ public class ClockRepository {
 		//リクエストの送信
 		rest.exchange(request, String.class);
 
-		/*
-		 * テスト用
-		 * ResponseEntity<String> response = rest.exchange(request, String.class);レスポンス文字列取得用
-		 * System.out.println(response);//
-		 * String json = response.getBody();
-		 * System.out.println(json);
-		 */
+		
+		   ResponseEntity<String> response = rest.exchange(request, String.class);
+		  System.out.println(response);//
+		  String json = response.getBody();
+		  System.out.println(json);
+		
 	}
 }

@@ -41,6 +41,7 @@ public class ClockService {
 
 		//リクエストボディ用のJSON文字列の作成
 		String requestBody = RequestJsonFormat.clockJsonFormat(employeeId, clickButton, currentDateTime);
+		System.out.println(requestBody);
 		clockRepository.clockRegist(requestBody);
 	}
 }
