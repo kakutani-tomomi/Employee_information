@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -78,13 +77,12 @@ public class EmployeeController {
 			@RequestParam("employeeId") String employeeId,
 			@RequestParam("click_button") String clickButton, Model model)
 			throws IOException {
-		//現在日時を取得
-		Date nowDate = new Date();
 		//右辺の形式にFormat
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		//String型の変数に格納
+		//現在時刻の取得
+		long nowDate = System.currentTimeMillis();
+		//String変換
 		String currentDate = dateFormat.format(nowDate);
-
 		//登録処理
 		clockService.clockRegist(employeeId, clickButton, currentDate);
 

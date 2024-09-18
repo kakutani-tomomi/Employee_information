@@ -33,6 +33,7 @@ public class EmployeeRepository {
 		ObjectMapper mapper = new ObjectMapper();
 		//json配列をEmployeeData型配列に格納
 		EmployeeData[] employeeList = mapper.readValue(json, EmployeeData[].class);
+		System.out.println(employeeList);
 
 		return employeeList;
 	}
