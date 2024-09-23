@@ -60,7 +60,7 @@ public class RequestJsonFormat {
 			throws JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper();
 		ObjectNode innerBody = mapper.createObjectNode();
-		ObjectNode outerBody = mapper.createObjectNode();
+		ObjectNode body = mapper.createObjectNode();
 		String clockJson = "";
 		if ("出勤".equals(clickButton)) {
 
@@ -100,9 +100,9 @@ public class RequestJsonFormat {
 		String innerBodyString = mapper.writeValueAsString(innerBody);
 		System.out.println(innerBodyString);
 		//外側を作成
-		outerBody.put("body", innerBodyString);
+		body.put("body", innerBodyString);
 		//外側を文字列に変換し格納
-		clockJson = mapper.writeValueAsString(outerBody);
+		clockJson = mapper.writeValueAsString(body);
 		return clockJson;
 	}
 
