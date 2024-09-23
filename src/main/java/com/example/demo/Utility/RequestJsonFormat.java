@@ -24,20 +24,25 @@ public class RequestJsonFormat {
 	 * @throws JsonProcessingException 
 	 */
 	public static String employeeJsonFormat(String name, String homeTown, String joiningMonth) throws JsonProcessingException {
+		//createObjectNodeメソッドの利用の為インスタンス生成
+		ObjectMapper mapper = new ObjectMapper();
+		//内側の空のjsonオブジェクトを作成
+		ObjectNode innerBody = mapper.createObjectNode();
+		//外側の空のjsonオブジェクトを作成
+		ObjectNode body = mapper.createObjectNode();
+		String employeeJson = "";
 		
-		ObjectMapper objectMapper = new ObjectMapper();
-		ObjectNode innerBody = objectMapper.createObjectNode();
-		ObjectNode outerBody = objectMapper.createObjectNode();
-		String employeeJson = null;
-		
+		//内側のjsonオブジェクトにデータ挿入
 		innerBody.put("name", name);
 		innerBody.put("hometown", homeTown);
 		innerBody.put("joining_month", joiningMonth);
 
-		String innerBodyString = objectMapper.writeValueAsString(innerBody);
-		outerBody.put("body", innerBodyString);
-		employeeJson = objectMapper.writeValueAsString(outerBody);
-		System.out.println(employeeJson);
+		//内側のjsonオブジェクトを文字列に変換し格納(エスケープ処理は勝手にされる) 
+		String innerBodyString = mapper.writeValueAsString(innerBody);
+		//全体のjsonオブジェクトにデータ挿入
+		body.put("body", innerBodyString);
+		//全体のjsonオブジェクトを文字列に変換(エスケープ処理は勝手にされる。)
+		employeeJson = mapper.writeValueAsString(body);
 
 		return employeeJson;
 
@@ -53,10 +58,10 @@ public class RequestJsonFormat {
 	 */
 	public static String clockJsonFormat(String employeeId, String clickButton, String currentDateTime)
 			throws JsonProcessingException {
-		ObjectMapper objectMapper = new ObjectMapper();
-		ObjectNode innerBody = objectMapper.createObjectNode();
-		ObjectNode outerBody = objectMapper.createObjectNode();
-		String clockJson = null;
+		ObjectMapper mapper = new ObjectMapper();
+		ObjectNode innerBody = mapper.createObjectNode();
+		ObjectNode outerBody = mapper.createObjectNode();
+		String clockJson = "";
 		if ("出勤".equals(clickButton)) {
 
 			innerBody.put("employee_id", employeeId);
@@ -91,10 +96,13 @@ public class RequestJsonFormat {
 			innerBody.put("break_end", "");
 			innerBody.put("clock_out", currentDateTime);
 		}
-		String innerBodyString = objectMapper.writeValueAsString(innerBody);
+		//内側を文字列に変換し格納
+		String innerBodyString = mapper.writeValueAsString(innerBody);
+		System.out.println(innerBodyString);
+		//外側を作成
 		outerBody.put("body", innerBodyString);
-		clockJson = objectMapper.writeValueAsString(outerBody);
-		System.out.println(clockJson);
+		//外側を文字列に変換し格納
+		clockJson = mapper.writeValueAsString(outerBody);
 		return clockJson;
 	}
 
