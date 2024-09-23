@@ -44,20 +44,29 @@ public class RequestJsonFormat {
 	 */
 	public static String clockJsonFormat(String employeeId, String clickButton, String currentDateTime)
 			throws JsonProcessingException {
-		String clockJson = null;
-		ObjectMapper mapper =  new ObjectMapper();
-	    ObjectNode innerBody = mapper.createObjectNode();
-	    ObjectNode json = mapper.createObjectNode();
+		ObjectMapper objectMapper = new ObjectMapper();
+		ObjectNode innerBody = objectMapper.createObjectNode();
+		ObjectNode outerBody = objectMapper.createObjectNode();
 		//休憩開始が押下されたらclock_inに現在時刻を格納
 		if ("出勤".equals(clickButton)) {
-			innerBody.put("\\employee_id", employeeId);
-	        innerBody.put("clock_in", currentDateTime);
-	        innerBody.put("break_start","");
-	        innerBody.put("break_end", "");
-	        innerBody.put("clock_out", "");
-			json.set("body", innerBody);
-			clockJson = mapper.writeValueAsString(json);
-			System.out.println(clockJson);
+			
+	        innerBody.put("name", "山田太郎");
+	        innerBody.put("hometown", "福岡県");
+	        innerBody.put("joining_month", "2023-07-07");
+	        innerBody.put("joining_month", "2023-07-07");
+
+	        // 内部JSONを文字列化
+	        String innerBodyString = objectMapper.writeValueAsString(innerBody);
+
+	        // 外側のJSONを作成
+	       
+	        outerBody.put("body", innerBodyString);
+
+	        // 最終的なJSON文字列を生成
+	        String finalJson = objectMapper.writeValueAsString(outerBody);
+
+	        // 結果を出力
+	        System.out.println(finalJson);
 			//休憩開始が押下されたらbreak_startに現在時刻を格納
 		} else if ("休憩開始".equals(clickButton)) {
 			
@@ -70,7 +79,7 @@ public class RequestJsonFormat {
 			
 
 		}
-		return clockJson;
+		return null;
 	}
 
 }
