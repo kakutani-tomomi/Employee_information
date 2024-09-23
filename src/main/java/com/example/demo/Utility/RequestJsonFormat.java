@@ -21,14 +21,23 @@ public class RequestJsonFormat {
 	 * @param homeTown 出身地
 	 * @param joiningMonth 入社月
 	 * @return　@return json形式の文字列。
+	 * @throws JsonProcessingException 
 	 */
-	public static String employeeJsonFormat(String name, String homeTown, String joiningMonth) {
-
+	public static String employeeJsonFormat(String name, String homeTown, String joiningMonth) throws JsonProcessingException {
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+		ObjectNode innerBody = objectMapper.createObjectNode();
+		ObjectNode outerBody = objectMapper.createObjectNode();
 		String employeeJson = null;
+		
+		innerBody.put("name", name);
+		innerBody.put("hometown", homeTown);
+		innerBody.put("joining_month", joiningMonth);
 
-		employeeJson = "{ \"body\": \"{\\\"name\\\":\\\"" + name + "\\\",\\\"hometown\\\":\\\""
-				+ homeTown + "\\\",\\\"joining_month\\\":\\\"" + joiningMonth
-				+ "\\\"}\" }";
+		String innerBodyString = objectMapper.writeValueAsString(innerBody);
+		outerBody.put("body", innerBodyString);
+		employeeJson = objectMapper.writeValueAsString(outerBody);
+		System.out.println(employeeJson);
 
 		return employeeJson;
 
@@ -47,39 +56,46 @@ public class RequestJsonFormat {
 		ObjectMapper objectMapper = new ObjectMapper();
 		ObjectNode innerBody = objectMapper.createObjectNode();
 		ObjectNode outerBody = objectMapper.createObjectNode();
-		//休憩開始が押下されたらclock_inに現在時刻を格納
+		String clockJson = null;
 		if ("出勤".equals(clickButton)) {
-			
-	        innerBody.put("name", "山田太郎");
-	        innerBody.put("hometown", "福岡県");
-	        innerBody.put("joining_month", "2023-07-07");
-	        innerBody.put("joining_month", "2023-07-07");
 
-	        // 内部JSONを文字列化
-	        String innerBodyString = objectMapper.writeValueAsString(innerBody);
+			innerBody.put("employee_id", employeeId);
+			innerBody.put("clock_in", currentDateTime);
+			innerBody.put("break_start", "");
+			innerBody.put("break_end", "");
+			innerBody.put("clock_out", "");
 
-	        // 外側のJSONを作成
-	       
-	        outerBody.put("body", innerBodyString);
-
-	        // 最終的なJSON文字列を生成
-	        String finalJson = objectMapper.writeValueAsString(outerBody);
-
-	        // 結果を出力
-	        System.out.println(finalJson);
-			//休憩開始が押下されたらbreak_startに現在時刻を格納
 		} else if ("休憩開始".equals(clickButton)) {
-			
+
+			innerBody.put("employee_id", employeeId);
+			innerBody.put("clock_in", "");
+			innerBody.put("break_start", currentDateTime);
+			innerBody.put("break_end", "");
+			innerBody.put("clock_out", "");
 
 			//休憩終了が押下されたらbreak_endに現在時刻を格納
 		} else if ("休憩終了".equals(clickButton)) {
-			
+
+			innerBody.put("employee_id", employeeId);
+			innerBody.put("clock_in", "");
+			innerBody.put("break_start", "");
+			innerBody.put("break_end", currentDateTime);
+			innerBody.put("clock_out", "");
+
 			//退勤が押下されたらclock_outに現在時刻を格納
 		} else if ("退勤".equals(clickButton)) {
 			
-
+			innerBody.put("employee_id", employeeId);
+			innerBody.put("clock_in", "");
+			innerBody.put("break_start", "");
+			innerBody.put("break_end", "");
+			innerBody.put("clock_out", currentDateTime);
 		}
-		return null;
+		String innerBodyString = objectMapper.writeValueAsString(innerBody);
+		outerBody.put("body", innerBodyString);
+		clockJson = objectMapper.writeValueAsString(outerBody);
+		System.out.println(clockJson);
+		return clockJson;
 	}
 
 }
